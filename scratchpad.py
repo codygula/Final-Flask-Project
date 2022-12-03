@@ -13,6 +13,9 @@ def query_table(table_name, key=None, value=None):
 
     raise ValueError('Parameters missing or invalid')
 
+
+
+
 if __name__ == '__main__':
     resp = query_table(
         table_name='searchItems', 
