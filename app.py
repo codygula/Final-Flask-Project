@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import boto3
 import scratchpad 
 
@@ -8,32 +8,26 @@ searchdatabase = dbclient.Table("searchItems")
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods =["GET", "POST"])
 def index():
-
-
-    # response = searchdatabase.get_item(
-    # TableName="searchItems",
-    # Key={
-    #     "email": "222222",
-    #     "ItemNumber": "*"
-    # })
-    # dbSearchTerm = response['Item']['searchterm']
-    # dbURL = response['Item']['siteURL']
-    # print(dbSearchTerm)
-    # print(dbURL)
 
     resp = scratchpad.query_table('searchItems', 'email', '222222')
     posts = resp.get('Items')
     print(posts)
-    # posts = [
-    #     {
-    #     'title': dbSearchTerm,
-    #     'created': dbURL
-    # },
-    #     {
-    #     'title': 'test2',
-    #     'created': 'test2'
-    # }]
 
     return render_template('index.html', posts=posts)
+
+
+
+@app.route('/', methods =["GET", "POST"])
+def UserInput():
+    if request.method == "POST":
+        searchword = request.form.get("searchword")
+        searchURL = request.form.get("URL")
+
+        print(searchword)
+        print(searchURL)
+    return render_template('index.html')
+
+
+
