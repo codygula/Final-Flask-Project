@@ -9,7 +9,7 @@
     <label for="searchword">Search Word/Phrase:</label>
     <input type="text" id="searchword" name="searchword">
 
-    <input type="submit" value="Add">
+    <input type="submit" value="Add" name="action1"/>
     
     
   </form>
@@ -21,6 +21,8 @@
             <h2>{{ post['siteURL'] }}</h2>
         </a>
         <span class="badge badge-primary">{{ post['searchterm'] }}</span>
+        <button name="deleteButton">Delete</button>
+        <button name="testButton">Test</button>
         <hr>
         
     {% endfor %}

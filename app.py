@@ -15,13 +15,14 @@ def UserInput():
     posts = resp.get('Items')
     print(posts)
     if request.method == "POST":
-        print("userInput() Called!!!!!!!!!!!!!!!!!!!")
-        searchword = request.form.get("searchword")
-        searchURL = request.form.get("URL")
-        response = scratchpad.put_info('222222', searchURL, searchword)
-        print(response)
-        print(searchword)
-        print(searchURL)
+        if request.form.get('action1') == 'Add':
+            print("userInput() Called!!!!!!!!!!!!!!!!!!!")
+            searchword = request.form.get("searchword")
+            searchURL = request.form.get("URL")
+            response = scratchpad.put_info('222222', searchURL, searchword)
+            print(response)
+            print(searchword)
+            print(searchURL)
     return render_template('index.html', posts=posts)
 
 

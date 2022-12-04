@@ -1,5 +1,6 @@
 from boto3 import resource
 from boto3.dynamodb.conditions import Key
+import time
 
 # THIS ACTUALLY WORKS!!! Stolen from https://stackoverflow.com/questions/53935211/query-all-items-by-partition-key-in-dynamo-using-boto3
 
@@ -22,7 +23,7 @@ def put_info(email, site, searchterm):
     response = searchdatabase.put_item(
             Item={
                 'email': email,
-                'ItemNumber': 12,
+                'ItemNumber': int(time.time()),
                 'siteURL': site,
                 'searchterm': searchterm,
                 })
@@ -31,18 +32,22 @@ def put_info(email, site, searchterm):
     print(response) 
 
 
+def delete_info(email, itemnumber):
+    response = searchdatabase.delete_item(
+        Key={
+            'email': email,
+            'ItemNumber': itemnumber
+        }
+    )
+    
+    status_code = response['ResponseMetadata']['HTTPStatusCode']
+    print(status_code)
+
+
 
 
 if __name__ == '__main__':
-    response = put_info('222222', 'FUCKasdfasdfa', 'YOUasdfasdweqrwe32')
+    response = delete_info('222222', 1670174184)
     print('resp = ', response)
   
 
-    # resp = query_table(
-    #     table_name='searchItems', 
-    #     key='email', 
-    #     value='222222'
-    # )
-    # items = resp.get('Items')
-    # print(len(items))
-    # print(items)
