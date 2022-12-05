@@ -24,7 +24,6 @@ def UserInput():
             print(response)
             print(searchword)
             print(searchURL)
-
     return render_template('index.html', posts=posts)
 
 @app.route('/DeleteItem',  methods =["POST"])
@@ -37,6 +36,16 @@ def DeleteItem():
     response = scratchpad.delete_info(email, deleteThis)
     print(response)
    
+    resp = scratchpad.query_table('searchItems', 'email', '222222')
+    posts = resp.get('Items')
+    return render_template('index.html', posts=posts)
+
+@app.route('/TestItem', methods = ["POST"])
+def TestItem():
+    information = request.data
+    print('information= ', information)
+    print('information= ', str(information[0]))
+    print('information= ', information[1])
     resp = scratchpad.query_table('searchItems', 'email', '222222')
     posts = resp.get('Items')
     return render_template('index.html', posts=posts)

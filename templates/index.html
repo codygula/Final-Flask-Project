@@ -23,8 +23,14 @@
         const xhr = new XMLHttpRequest();
         xhr.open('POST', URL);
         xhr.send(item);
-        
-
+}
+    function TestFunction(item1, item2) {
+        // console.log(item);
+        var item = [item1, item2]
+        const URL = '/TestItem'
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', URL);
+        xhr.send(item);
 }
 </script>
 
@@ -37,7 +43,7 @@
         <span class="badge badge-primary">ITMENUMBER = {{ post['ItemNumber'] }}</span>
         
             <input type="submit" onclick="DeleteFunction({{ post['ItemNumber'] }})" value='Delete' name="Delete"/>
-            <input type="submit" value="Test" name="Test" />
+            <input type="submit" onclick="TestFunction('thing1','thing2')" value="Test" name="Test" />
         </form>
         <hr>
         
