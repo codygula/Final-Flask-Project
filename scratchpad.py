@@ -46,8 +46,8 @@ def delete_info(email, itemnumber):
 
 
 
-if __name__ == '__main__':
-    response = delete_info('222222', 1670174184)
-    print('resp = ', response)
+# if __name__ == '__main__':
+#     response = delete_info('222222', 1670174184)
+#     print('resp = ', response)
   
 

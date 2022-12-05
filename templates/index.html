@@ -9,22 +9,40 @@
     <label for="searchword">Search Word/Phrase:</label>
     <input type="text" id="searchword" name="searchword">
 
-    <input type="submit" value="Add" name="action1"/>
+    <input type="submit" value="Add" name="Add"/>
     
     
   </form>
 {% endblock %}
 {% block content2 %}
-    <h1>{% block title %} Welcome to FlaskBlog {% endblock %}</h1>
+<script>
+    // Javascript Stolen partially from https://stackoverflow.com/questions/606191/convert-bytes-to-a-string
+    function DeleteFunction(item) {
+        // console.log(item);
+        const URL = '/DeleteItem'
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', URL);
+        xhr.send(item);
+        
+
+}
+</script>
+
+    <h1>{% block title %} CTRL+F AAS Dashboard {% endblock %}</h1>
     {% for post in posts %}
-        <a href="#">
-            <h2>{{ post['siteURL'] }}</h2>
-        </a>
-        <span class="badge badge-primary">{{ post['searchterm'] }}</span>
-        <button name="deleteButton">Delete</button>
-        <button name="testButton">Test</button>
+    <div></div>
+        <form>
+        <span name='URLThing' class="badge badge-primary">URL = {{ post['siteURL'] }}</span>
+        <span class="badge badge-primary">SEARCHTERM = {{ post['searchterm'] }}</span>
+        <span class="badge badge-primary">ITMENUMBER = {{ post['ItemNumber'] }}</span>
+        
+            <input type="submit" onclick="DeleteFunction({{ post['ItemNumber'] }})" value='Delete' name="Delete"/>
+            <input type="submit" value="Test" name="Test" />
+        </form>
         <hr>
         
     {% endfor %}
+    
     <h2>TEST</h2>
 {% endblock %}
+
