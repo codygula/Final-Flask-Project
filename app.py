@@ -30,9 +30,8 @@ def UserInput():
 def DeleteItem():
     information = request.data
     deleteThis = int(information.decode("utf-8"))
+    # replace with email from login
     email = '222222'
-    print('DEBUG! ', type(deleteThis), deleteThis, email)
-   
     response = scratchpad.delete_info(email, deleteThis)
     print(response)
    
@@ -43,9 +42,11 @@ def DeleteItem():
 @app.route('/TestItem', methods = ["POST"])
 def TestItem():
     information = request.data
-    print('information= ', information)
-    print('information= ', str(information[0]))
-    print('information= ', information[1])
+    testThis = int(information.decode("utf-8"))
+
+    # insert code to send a test email
+    print('TestItem() called!!!! testThis= ', testThis)
+
     resp = scratchpad.query_table('searchItems', 'email', '222222')
     posts = resp.get('Items')
     return render_template('index.html', posts=posts)
