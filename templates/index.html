@@ -25,18 +25,59 @@
         xhr.send(item);
 }
     function TestFunction(item) {
-        // console.log(item);
+        console.log(item);
         
         const URL = '/TestItem'
         const xhr = new XMLHttpRequest();
         xhr.open('POST', URL);
         xhr.send(item);
-
-
 }
+
+    function AddFunction() {
+        console.log("add function called, I think")
+        const itemWord = document.getElementById('searchword').value;
+        // const itemURL = (document.getElementById('searchURL').value)
+        console.log(itemWord);
+        
+        
+        const URL = '/AddItem'
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', URL);
+        xhr.send(itemWord);
+        
+        // var searchword =
+        //     document.getElementById('searchword');
+        // var searchURL =
+        //     document.querySelector("#AddItemForm [name='searchURL']");
+     
+        // var search_word = searchword.value;
+        // var search_URL = SearchURL.value;
+    
+    
+        // const URL = '/AddItem'
+        // var form = new FormData();
+        // form.append(search_word, search_URL);
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('POST', URL);
+        // xhr.send(searchword);
+    
+    }
 </script>
 
     <h1>{% block title %} CTRL+F AAS Dashboard {% endblock %}</h1>
+
+    <form id = 'addItem' >
+        <label for="URL">URL:</label>
+        <input type="text" id="searchURL" name="searchURL">
+    
+        <label for="searchword">Search Word/Phrase:</label>
+        <input type="text" id="searchword" name="searchword">
+    
+        <input type="button" onclick="AddFunction()" value="Add Item" name="Add"/>
+        
+        
+      </form>
+
     {% for post in posts %}
     <div></div>
         <form>
@@ -53,4 +94,3 @@
     
     <h2>TEST</h2>
 {% endblock %}
-

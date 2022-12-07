@@ -42,10 +42,29 @@ def DeleteItem():
 @app.route('/TestItem', methods = ["POST"])
 def TestItem():
     information = request.data
+    # information = request.form
     testThis = int(information.decode("utf-8"))
 
     # insert code to send a test email
     print('TestItem() called!!!! testThis= ', testThis)
+
+    resp = scratchpad.query_table('searchItems', 'email', '222222')
+    posts = resp.get('Items')
+    return render_template('index.html', posts=posts)
+
+@app.route('/AddItem', methods=["POST"])
+def AddItem():
+    print("AddItem() Called")
+    information = request.data
+    testThis = (information.decode("utf-8"))
+    print("testThis= ", testThis)
+    print(type(information))
+    print(type(testThis))
+    print("AddItem() information = ", information)
+
+    # searchword = request.form.get("searchword")
+    # searchURL = request.form.get("URL")
+    # response = scratchpad.put_info('222222', searchURL, searchword)
 
     resp = scratchpad.query_table('searchItems', 'email', '222222')
     posts = resp.get('Items')
