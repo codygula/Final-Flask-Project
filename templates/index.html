@@ -1,19 +1,7 @@
 {% extends 'base.html' %}
 
 
-{% block content1 %}
-<form action="{{ url_for('UserInput')}}" method="post">
-    <label for="URL">URL:</label>
-    <input type="text" id="URL" name="URL">
 
-    <label for="searchword">Search Word/Phrase:</label>
-    <input type="text" id="searchword" name="searchword">
-
-    <input type="submit" value="Add" name="Add"/>
-    
-    
-  </form>
-{% endblock %}
 {% block content2 %}
 <script>
     // Javascript Stolen partially from https://stackoverflow.com/questions/606191/convert-bytes-to-a-string
@@ -36,30 +24,13 @@
     function AddFunction() {
         console.log("add function called, I think")
         const itemWord = document.getElementById('searchword').value;
-        // const itemURL = (document.getElementById('searchURL').value)
-        console.log(itemWord);
-        
-        
+        const itemURL = document.getElementById('searchURL').value;
+
+        const data = JSON.stringify({item: itemWord, URL:itemURL})
         const URL = '/AddItem'
         const xhr = new XMLHttpRequest();
         xhr.open('POST', URL);
-        xhr.send(itemWord);
-        
-        // var searchword =
-        //     document.getElementById('searchword');
-        // var searchURL =
-        //     document.querySelector("#AddItemForm [name='searchURL']");
-     
-        // var search_word = searchword.value;
-        // var search_URL = SearchURL.value;
-    
-    
-        // const URL = '/AddItem'
-        // var form = new FormData();
-        // form.append(search_word, search_URL);
-        // const xhr = new XMLHttpRequest();
-        // xhr.open('POST', URL);
-        // xhr.send(searchword);
+        xhr.send(data);
     
     }
 </script>
@@ -71,7 +42,7 @@
         <input type="text" id="searchURL" name="searchURL">
     
         <label for="searchword">Search Word/Phrase:</label>
-        <input type="text" id="searchword" name="searchword">
+        <input type="text" id="searchword" value="TEST123" name="searchword">
     
         <input type="button" onclick="AddFunction()" value="Add Item" name="Add"/>
         
