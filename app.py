@@ -3,6 +3,8 @@ import boto3
 import scratchpad 
 import time
 import json
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+import bcrypt
 
 dbclient = boto3.resource("dynamodb")
 searchdatabase = dbclient.Table("searchItems")
@@ -15,17 +17,30 @@ app = Flask(__name__)
 def UserInput():
     resp = scratchpad.query_table('searchItems', 'email', '222222')
     posts = resp.get('Items')
-    # print(posts)
-    # if request.method == "POST":
-    #     if request.form.get('Add') == 'Add':
-    #         print("userInput() Called!!!!!!!!!!!!!!!!!!!")
-    #         searchword = request.form.get("searchword")
-    #         searchURL = request.form.get("URL")
-    #         response = scratchpad.put_info('222222', searchURL, searchword)
-    #         print(response)
-    #         print(searchword)
-    #         print(searchURL)
     return render_template('index.html', posts=posts)
+
+
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+# 	form = LoginForm()
+# 	if form.validate_on_submit():
+# 		user = Users.query.filter_by(username=form.username.data).first()
+# 		if user:
+# 			# Check the hash
+# 			if check_password_hash(user.password_hash, form.password.data):
+# 				login_user(user)
+# 				flash("Login Succesfull!!")
+# 				return redirect(url_for('dashboard'))
+# 			else:
+# 				flash("Wrong Password - Try Again!")
+# 		else:
+# 			flash("That User Doesn't Exist! Try Again...")
+
+
+# 	return render_template('login.html', form=form)
+
+
+
 
 @app.route('/DeleteItem',  methods =["POST"])
 def DeleteItem():
@@ -65,11 +80,10 @@ def AddItem():
     print("AddItem() data[item] = ", data["item"])
     print("AddItem() data[URL] = ", data["URL"])
 
-    # searchword = request.form.get("searchword")
-    # searchURL = request.form.get("URL")
     response = scratchpad.put_info('222222', data["URL"], data["item"])
     print(response)
-    time.sleep(1)
+
+
     resp = scratchpad.query_table('searchItems', 'email', '222222')
     posts = resp.get('Items')
     
